@@ -1,0 +1,24 @@
+# Core Machine Learning and Transformers
+transformers>=4.30
+datasets>=2.14
+torch>=2.0
+accelerate>=0.21
+
+# Parameter Efficient Fine-Tuning (LoRA)
+peft>=0.6
+
+# Optional GPU efficiency (for 8-bit/4-bit precision)
+bitsandbytes>=0.41
+
+# PDF text extraction (for domain fine-tuning)
+PyMuPDF>=1.22
+
+# Data handling and utilities
+pandas>=2.0
+
+# Optional: UI / demo tools (for future Gradio or Streamlit deployment)
+gradio>=4.0
+streamlit>=1.26
+
+# Logging / evaluation
+tqdm
