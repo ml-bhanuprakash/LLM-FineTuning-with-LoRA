@@ -15,11 +15,13 @@ Built end-to-end using **Hugging Face Transformers**, **PEFT**, and **Datasets**
 
 ## 🗂️ Repository Structure
 ```
-├── non_instruction_pretrain_finetune.py   # Domain fine-tuning on pharmaceutical PDFs
-├── instruction_finetune.py                # Instruction-based fine-tuning (LoRA)
-├── pharma_instruction_data.csv            # Example dataset (if provided)
-├── requirements.txt                       # Dependencies
-└── README.md                              # Project documentation
+├── non_instruction_pretrain_finetune.py    # Domain fine-tuning on pharmaceutical PDFs
+├── instruction_finetune.py                 # Instruction-based fine-tuning (LoRA)
+├── inference_non_instruction.py            # Inference for domain fine-tuned model
+├── inference_instruction.py                # Inference for instruction-tuned model
+├── pharma_instruction_data.csv             # Example dataset (if provided)
+├── requirements.txt                        # Dependencies
+└── README.md                               # Project documentation
 ```
 
 ---
@@ -91,16 +93,31 @@ instruction | input | output
 
 ---
 
-## 🧪 Inference Example
-```python
-prompt = "Explain the mechanism of action of Metformin."
-inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
-outputs = model.generate(**inputs, max_new_tokens=100)
-print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+## 🧪 Inference
+
+### **Non-Instruction Model**
+For generating text based on domain knowledge (e.g., pharmaceutical context).
+
+#### Example Command
+```bash
+python inference_non_instruction.py   --model_path ./outputs/domain_model   --prompt "Describe the mechanism of action of Atorvastatin."
 ```
 
-**Sample Output:**
-> Metformin activates AMP-activated protein kinase (AMPK), increasing glucose uptake and reducing hepatic glucose production.
+#### Example Output
+> Atorvastatin inhibits HMG-CoA reductase, the enzyme responsible for cholesterol synthesis, lowering LDL levels in the bloodstream.
+
+---
+
+### **Instruction Model**
+For structured, conversational inference using instruction-response format.
+
+#### Example Command
+```bash
+python inference_instruction.py   --model_path ./outputs/instruction_model   --instruction "Summarize the pharmacological use of Ezetimibe."
+```
+
+#### Example Output
+> Ezetimibe reduces cholesterol absorption in the small intestine by inhibiting the NPC1L1 transporter, making it effective for managing hypercholesterolemia.
 
 ---
 
@@ -142,7 +159,8 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 - [PEFT Library](https://huggingface.co/docs/peft)
 - [TinyLlama Model Card](https://huggingface.co/TinyLlama)
 - [Alpaca Dataset](https://huggingface.co/datasets/tatsu-lab/alpaca)
-  
+
+
 ---
 
 ## 🧾 Key Skills Demonstrated
